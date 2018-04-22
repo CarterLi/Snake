@@ -151,6 +151,21 @@ class Snake {
   }
 
   run() {
+    {
+      const gamepad = navigator.getGamepads()[0];
+      if (gamepad) {
+        if (gamepad.axes[0] > .5) {
+          this.nextDirection = Direction.Right;
+        } else if (gamepad.axes[0] < -.5) {
+          this.nextDirection = Direction.Left;
+        } else if (gamepad.axes[1] > .5) {
+          this.nextDirection = Direction.Down;
+        } else if (gamepad.axes[1] < -.5) {
+          this.nextDirection = Direction.Up;
+        }
+      }
+    }
+
     this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
     this.move();
     if (!this.food) this.generateFood();
